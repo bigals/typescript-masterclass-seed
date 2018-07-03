@@ -1,24 +1,12 @@
-//Object Literal
-const myObj = {
+class MyClass {
     myMethod() {
-        console.log('Object:::', this);
+        const foo = 123;
+        console.log('1', this);
+        setTimeout(() => {
+            console.log('2', this);
+        }, 0);
     }
 }
 
-myObj.myMethod();
-
-//Function
-function myFunction(...text: string[]) {
-    console.log('Function:::', this, text);
-}
-
-const bindFunction = myFunction.bind(myObj);
-bindFunction('ABC', 'DEF');
-bindFunction('123', '456');
-bindFunction('ABC', 'DEF');
-
-//changes the this context to myObj then calls
-myFunction.call(myObj, 'ABC', 'DEF');
-
-//changes the this context to myObj then calls
-myFunction.apply(myObj, ['ABC', 'DEF']);
+const myInstance = new MyClass();
+myInstance.myMethod();
