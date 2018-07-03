@@ -1,12 +1,6 @@
-class MyClass {
-    myMethod() {
-        const foo = 123;
-        console.log('1', this);
-        setTimeout(() => {
-            console.log('2', this);
-        }, 0);
-    }
+const elem = document.querySelector('.click');
+function handleClick(this: HTMLAnchorElement, event: Event) {
+    event.preventDefault();
+    console.log(this.className);
 }
-
-const myInstance = new MyClass();
-myInstance.myMethod();
+elem.addEventListener('click', handleClick, false);
