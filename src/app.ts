@@ -1,16 +1,14 @@
-interface Person {
-    name: string;
-    age: number;
-    address: {}
+
+interface TrackStates {
+    current: string;
+    next: string;
 }
 
-//Works the same as builtin Pick type
-type MyPick<T, K extends keyof T> = {
-    [P in K]: T[P]
+const item: Record<keyof TrackStates, string> = {
+    current: 'js02js9',
+    next: '8nlkksjsk'
 };
 
-//the two properties in the union have to exist in Person, and we are typing to a Person type, but only respecting the name and age props
-const person: MyPick<Person, 'name' | 'age'> = {
-    name: 'Todd',
-    age: 27
-};
+let dictionary: Record<string, TrackStates> = {};
+//Numbers are coerced to String
+dictionary[0] = item;
