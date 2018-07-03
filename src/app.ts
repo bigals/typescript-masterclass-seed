@@ -3,17 +3,18 @@ interface Person {
     age: number;
 }
 
+//Equivalent to builtin Partial
+type MyPartial<T> = {
+    [P in keyof T]?: T[P]
+};
+
+function updatePerson(person: Person, prop: MyPartial<Person>) {
+    return { ...person, ...prop };
+}
+
 const person: Person = {
     name: 'Todd',
     age: 27
 }
 
-type MyReadonly<T> = {
-    readonly [P in keyof T]: T[P]
-};
-//typing not needed here, everything can be inferred
-function freeze<T>(obj: T): MyReadonly<T> {
-    return Object.freeze(obj);
-}
-
-const newPerson = freeze(person);
+updatePerson(person, { name: 'ABC' });
