@@ -1,15 +1,16 @@
 interface Person {
     name: string;
-    age: number;
+    age?: number;
 }
 
-//Equivalent to builtin Partial
-type MyPartial<T> = {
-    [P in keyof T]?: T[P]
+//Equivalent to built in Required<>
+type MyRequired<T> = {
+    [P in keyof T]-?: T[P] //removes the optional modifer on every key
+    //could do -readonly to remove readonly properties
 };
 
-function updatePerson(person: Person, prop: MyPartial<Person>) {
-    return { ...person, ...prop };
+function printAge(person: MyRequired<Person>) {
+    return `${person.name} is ${person.age}`;
 }
 
 const person: Person = {
@@ -17,4 +18,4 @@ const person: Person = {
     age: 27
 }
 
-updatePerson(person, { name: 'ABC' });
+const age = printAge(person);
