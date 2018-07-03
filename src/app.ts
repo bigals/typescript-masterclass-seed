@@ -1,24 +1,19 @@
-const person = {
+interface Person {
+    name: string;
+    age: number;
+}
+
+const person: Person = {
     name: 'Todd',
     age: 27
+}
+
+type MyReadonly<T> = {
+    readonly [P in keyof T]: T[P]
 };
-
-type Person = typeof person;
-type PersonKeys = keyof Person;
-
-type PersonTypes = Person[PersonKeys];
-
-//K is a subtype of T (i.e. looking at function call, name property must exist on person)
-function getProperty<T, K extends keyof T>(obj: T, key: K) {
-    return obj[key];
+//typing not needed here, everything can be inferred
+function freeze<T>(obj: T): MyReadonly<T> {
+    return Object.freeze(obj);
 }
 
-const personName = getProperty(person, 'name');
-
-const anotherPerson: Person = {
-    name: 'John',
-    age: 30
-}
-
-// JavaScript
-// typeof person // 'object'
+const newPerson = freeze(person);
